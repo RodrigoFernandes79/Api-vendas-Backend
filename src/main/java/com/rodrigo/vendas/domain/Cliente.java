@@ -1,9 +1,12 @@
 package com.rodrigo.vendas.domain;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cliente {
@@ -11,6 +14,9 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
+	@OneToMany(mappedBy = "cliente")
+	private Set<Pedido> pedidos;
 	
 	
 	public Integer getId() {
@@ -25,6 +31,14 @@ public class Cliente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	public Set<Pedido> getPedidos() {
+		return pedidos;
+	}
+	public void setPedidos(Set<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
+	
 	
 	
 

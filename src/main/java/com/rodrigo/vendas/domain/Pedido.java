@@ -3,11 +3,25 @@ package com.rodrigo.vendas.domain;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Pedido {
-	
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer id;
+	
+	@ManyToOne
+	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
 	private LocalDate dataPedido;
+	@Column(length = 20, precision = 2)  //1000.00
 	private BigDecimal total;
 	
 	
