@@ -20,6 +20,19 @@ public class Cliente {
 	private Set<Pedido> pedidos;
 	
 	
+	public Cliente() {
+		
+	}
+	
+	
+	public Cliente(Integer id, String nome) {
+		
+		this.id = id;
+		this.nome = nome;
+		
+	}
+
+
 	public Integer getId() {
 		return id;
 	}

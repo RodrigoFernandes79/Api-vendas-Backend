@@ -16,6 +16,19 @@ public class Produto {
 	private BigDecimal precoUnitario;
 	
 	
+	public Produto() {
+		
+	}
+	
+	
+	public Produto(Integer id, String descricaoProduto, BigDecimal precoUnitario) {
+		super();
+		this.id = id;
+		this.descricaoProduto = descricaoProduto;
+		this.precoUnitario = precoUnitario;
+	}
+
+
 	public Integer getId() {
 		return id;
 	}

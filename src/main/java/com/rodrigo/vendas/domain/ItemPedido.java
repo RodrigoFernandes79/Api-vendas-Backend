@@ -21,6 +21,20 @@ public class ItemPedido {
 	private Integer quantidade;
 	
 	
+	public ItemPedido() {
+		
+	}
+	
+	
+	public ItemPedido(Integer id, Pedido pedido, Produto produto, Integer quantidade) {
+		super();
+		this.id = id;
+		this.pedido = pedido;
+		this.produto = produto;
+		this.quantidade = quantidade;
+	}
+
+
 	public Integer getId() {
 		return id;
 	}
