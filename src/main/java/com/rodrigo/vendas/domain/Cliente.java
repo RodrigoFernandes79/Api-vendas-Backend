@@ -1,5 +1,6 @@
 package com.rodrigo.vendas.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -9,15 +10,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY ) //EAGER:carrega a lista de pedidos do cliente
-	private Set<Pedido> pedidos;
+	private Set<Pedido> pedidos = new HashSet<>();
 	
 	
 	public Cliente() {
@@ -45,6 +48,7 @@ public class Cliente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
 	public Set<Pedido> getPedidos() {
 		return pedidos;
 	}

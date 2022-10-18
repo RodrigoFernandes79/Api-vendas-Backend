@@ -2,6 +2,7 @@ package com.rodrigo.vendas.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ public class Pedido {
 	private Cliente cliente;
 	
 	@OneToMany(mappedBy = "pedido")
-	private List<ItemPedido> itemPedidos;
+	private List<ItemPedido> itemPedidos = new ArrayList<>();
 	private LocalDate dataPedido;
 	@Column(precision = 20, scale=2)  //1000.00
 	private BigDecimal total;
