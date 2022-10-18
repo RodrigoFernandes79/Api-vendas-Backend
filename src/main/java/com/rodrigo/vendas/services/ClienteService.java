@@ -16,7 +16,16 @@ public class ClienteService {
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
-
+	
+	public Cliente salvar(Cliente cliente) {
+		Cliente cli = clienteRepository.findBycpf(cliente.getCpf());
+		
+		if(cli != null) {
+			throw new DataIntegrityViolationException("CPF já existe no Banco de Dados");
+		}else {
+		return clienteRepository.save(cliente);
+	}
+	}
 	
 	public Cliente listarClientePorId(Integer id) {
 		
@@ -46,16 +55,28 @@ public class ClienteService {
 
 
 	public Cliente atualizarCliente(Integer id, Cliente cliente) {
-		
+	Cliente client = clienteRepository.findBycpf(cliente.getCpf());
+	
+	if(client != null && client.getId() != cliente.getId()) {
+		throw new DataIntegrityViolationException("CPF Já existe no banco de dados");
+	}
 		return clienteRepository.findById(id)
 				.map(cli ->{
 					cli.getId();
 					cli.setNome(cliente.getNome());
-					
+					cli.setCpf(cliente.getCpf());
+						
 					Cliente obj = clienteRepository.save(cli);
+				
 					return obj;
 				}).orElseThrow(()->
 					new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado!"));
-				
+		}
+
+
+	
+			
 	}
-	}
+	
+	
+	

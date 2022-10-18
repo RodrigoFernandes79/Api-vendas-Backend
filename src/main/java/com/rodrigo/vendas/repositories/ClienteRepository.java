@@ -24,5 +24,8 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 	
 	@Query(value="SELECT c FROM Cliente c left join fetch c.pedidos where c.id =:id ")
 	Cliente encontrarClienteComPedidos(@Param(value="id")Integer id);
+	
+	
+	Cliente findBycpf(String cpf);
 
 }

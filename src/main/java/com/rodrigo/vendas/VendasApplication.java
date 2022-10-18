@@ -49,7 +49,7 @@ public class VendasApplication implements CommandLineRunner{
 		
 		produtoRepository.saveAll(Arrays.asList(prod1,prod2));
 		
-		Cliente cli1 = new Cliente(null, "Pedro Almeida");
+		Cliente cli1 = new Cliente(null, "Pedro Almeida" ,"34544334412");
 		
 		
 		Pedido ped1 = new Pedido(null, cli1,LocalDate.now(),BigDecimal.valueOf(2000.00));

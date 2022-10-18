@@ -21,15 +21,14 @@ import com.rodrigo.vendas.services.ClienteService;
 @RequestMapping("/api/clientes")
 public class ClienteController {
 	
-	@Autowired
-	private ClienteRepository clienteRepository;
+	
 	@Autowired
 	private ClienteService clienteService;
 	
 	@PostMapping
 	public ResponseEntity<Cliente> inserirCliente(@RequestBody Cliente cliente){
 		
-		Cliente obj = clienteRepository.save(cliente);
+		Cliente obj = clienteService.salvar(cliente);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(obj);
 	}

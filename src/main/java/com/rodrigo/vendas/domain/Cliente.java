@@ -3,6 +3,7 @@ package com.rodrigo.vendas.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,8 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	@Column(length=11)
+	private String cpf;
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY ) //EAGER:carrega a lista de pedidos do cliente
 	private Set<Pedido> pedidos = new HashSet<>();
@@ -28,12 +31,18 @@ public class Cliente {
 	}
 	
 	
-	public Cliente(Integer id, String nome) {
-		
+	
+
+
+	public Cliente(Integer id, String nome, String cpf) {
+		super();
 		this.id = id;
 		this.nome = nome;
-		
+		this.cpf = cpf;
 	}
+
+
+
 
 
 	public Integer getId() {
@@ -49,6 +58,16 @@ public class Cliente {
 		this.nome = nome;
 	}
 	
+	
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+
 	public Set<Pedido> getPedidos() {
 		return pedidos;
 	}
