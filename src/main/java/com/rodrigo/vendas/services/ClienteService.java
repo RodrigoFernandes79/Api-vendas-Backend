@@ -43,4 +43,19 @@ public class ClienteService {
 				"Cliente não pode ser deletado.Possui pedidos associados");
 	}
 }
-}
+
+
+	public Cliente atualizarCliente(Integer id, Cliente cliente) {
+		
+		return clienteRepository.findById(id)
+				.map(cli ->{
+					cli.getId();
+					cli.setNome(cliente.getNome());
+					
+					Cliente obj = clienteRepository.save(cli);
+					return obj;
+				}).orElseThrow(()->
+					new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado!"));
+				
+	}
+	}
