@@ -3,6 +3,7 @@ package com.rodrigo.vendas.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -27,4 +28,19 @@ public class ClienteService {
 				new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado"));
 		
 	}
+
+
+	public void deletarCliente(Integer id) {
+		try {
+		Cliente obj = clienteRepository.findById(id)
+				.orElseThrow(() -> 
+				new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+		
+		clienteRepository.delete(obj);
+ 		
+	} catch(DataIntegrityViolationException e) {
+		throw new DataIntegrityViolationException(
+				"Cliente não pode ser deletado.Possui pedidos associados");
+	}
+}
 }
