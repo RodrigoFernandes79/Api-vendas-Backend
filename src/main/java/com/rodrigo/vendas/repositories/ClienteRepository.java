@@ -12,11 +12,11 @@ import com.rodrigo.vendas.domain.Cliente;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 	
-	//consulta spql:
 	
 	
 	
-	//@Query(value="SELECT c FROM Cliente c WHERE c.nome LIKE %:nome%")
+	
+	// findByNomeIgnoreCaseContaining = ignora letras maiusculas e minusculas e Containing = LIKE
 	Page<Cliente> findByNomeIgnoreCaseContaining( String nome , PageRequest pageRequest);
 
 	//consulta com sql nativo:

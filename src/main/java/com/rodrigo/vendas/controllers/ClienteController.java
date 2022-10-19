@@ -1,7 +1,5 @@
 package com.rodrigo.vendas.controllers;
 
-import java.util.Locale;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -76,6 +74,7 @@ public class ClienteController {
 			nome,page, linesPerPage, orderBy, direction);
 		
 		return ResponseEntity.ok().body(obj);
+		
 		
 	}
 }

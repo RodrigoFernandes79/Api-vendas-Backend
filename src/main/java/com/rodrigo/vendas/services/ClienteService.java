@@ -53,7 +53,7 @@ public class ClienteService {
 	public Cliente atualizarCliente(Integer id, Cliente cliente) {
 		Cliente client = clienteRepository.findBycpf(cliente.getCpf());
 
-		if (client != null && client.getId() != cliente.getId()) {
+		if (client != null && client.getId() != id) {
 			throw new DataIntegrityViolationException("CPF Já existe no banco de dados");
 		}
 		return clienteRepository.findById(id).map(cli -> {
