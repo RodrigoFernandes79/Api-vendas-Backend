@@ -10,23 +10,20 @@ import org.springframework.stereotype.Repository;
 import com.rodrigo.vendas.domain.Cliente;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
-	
-	
-	
-	
-	
-	// findByNomeIgnoreCaseContaining = ignora letras maiusculas e minusculas e Containing = LIKE
-	Page<Cliente> findByNomeIgnoreCaseContaining( String nome , PageRequest pageRequest);
+public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
-	//consulta com sql nativo:
-	//@Query(value="SELECT * FROM Cliente  WHERE nome ILIKE '%:nome%' ", nativeQuery = true)
-	//List<Cliente> encontrarPorNomeSql(@Param(value="nome") String nome);
-	
-	@Query(value="SELECT c FROM Cliente c left join fetch c.pedidos where c.id =:id ")
-	Cliente encontrarClienteComPedidos(@Param(value="id")Integer id);
-	
-	
+	// findByNomeIgnoreCaseContaining = ignora letras maiusculas e minusculas e
+	// Containing = LIKE
+	Page<Cliente> findByNomeIgnoreCaseContaining(String nome, PageRequest pageRequest);
+
+	// consulta com sql nativo:
+	// @Query(value="SELECT * FROM Cliente WHERE nome ILIKE '%:nome%' ", nativeQuery
+	// = true)
+	// List<Cliente> encontrarPorNomeSql(@Param(value="nome") String nome);
+
+	@Query(value = "SELECT c FROM Cliente c left join fetch c.pedidos where c.id =:id ")
+	Cliente encontrarClienteComPedidos(@Param(value = "id") Integer id);
+
 	Cliente findBycpf(String cpf);
 
 }

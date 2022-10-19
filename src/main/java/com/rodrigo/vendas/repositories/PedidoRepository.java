@@ -9,10 +9,8 @@ import com.rodrigo.vendas.domain.Cliente;
 import com.rodrigo.vendas.domain.Pedido;
 
 @Repository
-public interface PedidoRepository extends JpaRepository<Pedido, Integer>{
-	
+public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
+
 	List<Pedido> findByCliente(Cliente cliente);
-	
-	
 
 }

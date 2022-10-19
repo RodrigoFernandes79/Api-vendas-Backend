@@ -19,20 +19,15 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	@Column(length=11)
+	@Column(length = 11)
 	private String cpf;
 	@JsonIgnore
-	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY ) //EAGER:carrega a lista de pedidos do cliente
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY) // EAGER:carrega a lista de pedidos do cliente
 	private Set<Pedido> pedidos = new HashSet<>();
-	
-	
-	public Cliente() {
-		
-	}
-	
-	
-	
 
+	public Cliente() {
+
+	}
 
 	public Cliente(Integer id, String nome, String cpf) {
 		super();
@@ -41,24 +36,22 @@ public class Cliente {
 		this.cpf = cpf;
 	}
 
-
-
-
-
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
+
 	public String getCpf() {
 		return cpf;
 	}
@@ -67,16 +60,12 @@ public class Cliente {
 		this.cpf = cpf;
 	}
 
-
 	public Set<Pedido> getPedidos() {
 		return pedidos;
 	}
+
 	public void setPedidos(Set<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
-	
-	
-	
-	
 
 }

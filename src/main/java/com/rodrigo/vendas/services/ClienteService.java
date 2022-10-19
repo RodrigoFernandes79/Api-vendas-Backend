@@ -67,14 +67,13 @@ public class ClienteService {
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!"));
 	}
 
-	public Page<Cliente> listarClientesPorNome( 
-			String nome, Integer page, Integer linesPerPages, String orderBy,String direction){
-			
-			PageRequest pgRequest = PageRequest.of(page, linesPerPages,Direction.valueOf(direction),orderBy);
-			
-			
-			Page<Cliente> nomeCliente = clienteRepository.findByNomeIgnoreCaseContaining(nome, pgRequest);
+	public Page<Cliente> listarClientesPorNome(String nome, Integer page, Integer linesPerPages, String orderBy,
+			String direction) {
+
+		PageRequest pgRequest = PageRequest.of(page, linesPerPages, Direction.valueOf(direction), orderBy);
+
+		Page<Cliente> nomeCliente = clienteRepository.findByNomeIgnoreCaseContaining(nome, pgRequest);
 		return nomeCliente;
 	}
-	
+
 }
