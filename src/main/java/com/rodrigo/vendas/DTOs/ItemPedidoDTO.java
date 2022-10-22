@@ -1,13 +1,11 @@
 package com.rodrigo.vendas.DTOs;
 
-import java.math.BigDecimal;
-
 import com.rodrigo.vendas.domain.ItemPedido;
 
 public class ItemPedidoDTO {
 
 	private String produto;
-	private BigDecimal precoUnitario;
+	private Double precoUnitario;
 	private Integer quantidade;
 
 	public ItemPedidoDTO() {
@@ -23,7 +21,7 @@ public class ItemPedidoDTO {
 	}
 
 	public double subTotal() {
-		return precoUnitario.doubleValue() * quantidade;
+		return precoUnitario * quantidade;
 	}
 
 	public String getProduto() {
@@ -42,11 +40,11 @@ public class ItemPedidoDTO {
 		this.quantidade = quantidade;
 	}
 
-	public BigDecimal getPrecoUnitario() {
+	public Double getPrecoUnitario() {
 		return precoUnitario;
 	}
 
-	public void setPrecoUnitario(BigDecimal precoUnitario) {
+	public void setPrecoUnitario(Double precoUnitario) {
 		this.precoUnitario = precoUnitario;
 	}
 

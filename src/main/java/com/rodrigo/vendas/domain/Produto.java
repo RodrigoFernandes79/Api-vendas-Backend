@@ -1,7 +1,5 @@
 package com.rodrigo.vendas.domain;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,13 +12,13 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricaoProduto;
-	private BigDecimal precoUnitario;
+	private Double precoUnitario;
 
 	public Produto() {
 
 	}
 
-	public Produto(Integer id, String descricaoProduto, BigDecimal precoUnitario) {
+	public Produto(Integer id, String descricaoProduto, Double precoUnitario) {
 		super();
 		this.id = id;
 		this.descricaoProduto = descricaoProduto;
@@ -43,11 +41,11 @@ public class Produto {
 		this.descricaoProduto = descricaoProduto;
 	}
 
-	public BigDecimal getPrecoUnitario() {
+	public Double  getPrecoUnitario() {
 		return precoUnitario;
 	}
 
-	public void setPrecoUnitario(BigDecimal precoUnitario) {
+	public void setPrecoUnitario(Double precoUnitario) {
 		this.precoUnitario = precoUnitario;
 	}
 

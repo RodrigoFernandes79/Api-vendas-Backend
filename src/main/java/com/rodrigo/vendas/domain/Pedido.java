@@ -1,10 +1,9 @@
 package com.rodrigo.vendas.domain;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,32 +25,22 @@ public class Pedido {
 	private Cliente cliente;
 	@JsonManagedReference
 	@OneToMany(mappedBy = "pedido")
-	private List<ItemPedido> itemPedidos;
+	private List<ItemPedido> itemPedidos = new ArrayList<>();
 	private LocalDate dataPedido;
-	@Column(precision = 20, scale = 2) // 1000.00
-	private BigDecimal total;
 
 	public Pedido() {
 		super();
 
 	}
 
-
-	
-
-
-	public Pedido(Integer id, Cliente cliente,  LocalDate dataPedido, BigDecimal total) {
+	public Pedido(Integer id, Cliente cliente, LocalDate dataPedido) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
-		
+
 		this.dataPedido = dataPedido;
-		this.total = total;
+
 	}
-
-	
-
-
 
 	public Integer getId() {
 		return id;
@@ -68,8 +57,6 @@ public class Pedido {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
-	
 
 	public List<ItemPedido> getItemPedidos() {
 		return itemPedidos;
@@ -86,16 +73,5 @@ public class Pedido {
 	public void setDataPedido(LocalDate dataPedido) {
 		this.dataPedido = dataPedido;
 	}
-
-	public BigDecimal getTotal() {
-		return total;
-	}
-
-
-	public void setTotal(BigDecimal total) {
-		this.total = total;
-	}
-
-	
 
 }

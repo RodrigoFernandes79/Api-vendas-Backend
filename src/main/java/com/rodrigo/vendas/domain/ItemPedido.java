@@ -22,6 +22,7 @@ public class ItemPedido {
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
 	private Integer quantidade;
+	private Double subTotal;
 
 	public ItemPedido() {
 
@@ -33,10 +34,12 @@ public class ItemPedido {
 		this.pedido = pedido;
 		this.produto = produto;
 		this.quantidade = quantidade;
+		this.setSubTotal(subTotal());
 	}
-	
-	
 
+	public double subTotal() {
+		return produto.getPrecoUnitario() * quantidade;
+	}
 
 	public Integer getId() {
 		return id;
@@ -68,6 +71,14 @@ public class ItemPedido {
 
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+
+	public Double getSubTotal() {
+		return subTotal;
+	}
+
+	public void setSubTotal(Double subTotal) {
+		this.subTotal = subTotal;
 	}
 
 }
