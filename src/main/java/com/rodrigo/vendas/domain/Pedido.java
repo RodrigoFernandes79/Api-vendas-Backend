@@ -2,7 +2,6 @@ package com.rodrigo.vendas.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Pedido {
 	@Id
@@ -23,9 +24,9 @@ public class Pedido {
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
-
+	@JsonManagedReference
 	@OneToMany(mappedBy = "pedido")
-	private List<ItemPedido> itemPedidos = new ArrayList<>();
+	private List<ItemPedido> itemPedidos;
 	private LocalDate dataPedido;
 	@Column(precision = 20, scale = 2) // 1000.00
 	private BigDecimal total;
@@ -35,14 +36,22 @@ public class Pedido {
 
 	}
 
-	public Pedido(Integer id, Cliente cliente, LocalDate dataPedido, BigDecimal total) {
+
+	
+
+
+	public Pedido(Integer id, Cliente cliente,  LocalDate dataPedido, BigDecimal total) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
-
+		
 		this.dataPedido = dataPedido;
 		this.total = total;
 	}
+
+	
+
+
 
 	public Integer getId() {
 		return id;
@@ -59,6 +68,16 @@ public class Pedido {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+	
+	
+
+	public List<ItemPedido> getItemPedidos() {
+		return itemPedidos;
+	}
+
+	public void setItemPedidos(List<ItemPedido> itemPedidos) {
+		this.itemPedidos = itemPedidos;
+	}
 
 	public LocalDate getDataPedido() {
 		return dataPedido;
@@ -72,8 +91,11 @@ public class Pedido {
 		return total;
 	}
 
+
 	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
+
+	
 
 }

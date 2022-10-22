@@ -21,60 +21,54 @@ import com.rodrigo.vendas.services.ClienteService;
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
-	
-	
+
 	@Autowired
 	private ClienteService clienteService;
-	
+
 	@PostMapping
-	public ResponseEntity<Cliente> inserirCliente(@RequestBody Cliente cliente){
-		
+	public ResponseEntity<Cliente> inserirCliente(@RequestBody Cliente cliente) {
+
 		Cliente obj = clienteService.salvar(cliente);
-		
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(obj);
 	}
-	
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> listarClientePorId(@PathVariable Integer id){
-		
+	public ResponseEntity<Cliente> listarClientePorId(@PathVariable Integer id) {
+
 		Cliente obj = clienteService.listarClientePorId(id);
-		
+
 		return ResponseEntity.ok().body(obj);
-		
+
 	}
-	
+
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deletarCliente(@PathVariable Integer id){
+	public void deletarCliente(@PathVariable Integer id) {
 
-		 clienteService.deletarCliente(id);
-		
-		
+		clienteService.deletarCliente(id);
+
 	}
-	
+
 	@PutMapping("/{id}")
-	public ResponseEntity<Cliente> atualizarCliente(@PathVariable Integer id,
-													@RequestBody Cliente cliente){
-		
-		Cliente obj = clienteService.atualizarCliente(id,cliente);
-		
+	public ResponseEntity<Cliente> atualizarCliente(@PathVariable Integer id, @RequestBody Cliente cliente) {
+
+		Cliente obj = clienteService.atualizarCliente(id, cliente);
+
 		return ResponseEntity.ok().body(obj);
 	}
-	
-	@GetMapping //localhost:8080/api/clientes/?nome="nome"
+
+	@GetMapping // localhost:8080/api/clientes/?nome="nome"
 	public ResponseEntity<Page<Cliente>> listarClientesPorNome(
-			@RequestParam(value="nome", required =false) String nome,
-			@RequestParam(value="page",defaultValue="0")Integer page,
-			@RequestParam(value="linesPerPage",defaultValue = "24") Integer linesPerPage,
-			@RequestParam(value="orderBy",defaultValue = "nome") String orderBy,
-			@RequestParam(value="direction",defaultValue = "ASC") String direction){
-			
-		Page<Cliente> obj = clienteService.listarClientesPorNome(
-			nome,page, linesPerPage, orderBy, direction);
-		
+			@RequestParam(value = "nome", required = false) String nome,
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+
+		Page<Cliente> obj = clienteService.listarClientesPorNome(nome, page, linesPerPage, orderBy, direction);
+
 		return ResponseEntity.ok().body(obj);
-		
-		
+
 	}
 }

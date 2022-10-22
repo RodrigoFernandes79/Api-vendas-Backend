@@ -7,11 +7,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class ItemPedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "pedido_id")
 	private Pedido pedido;
@@ -31,6 +34,9 @@ public class ItemPedido {
 		this.produto = produto;
 		this.quantidade = quantidade;
 	}
+	
+	
+
 
 	public Integer getId() {
 		return id;
