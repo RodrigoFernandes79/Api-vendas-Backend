@@ -2,10 +2,17 @@ package com.rodrigo.vendas.DTOs;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.rodrigo.vendas.domain.Pedido;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+@Getter
+@Setter
+@NoArgsConstructor
 public class PedidoDTO {
 
 	private Integer id;
@@ -14,9 +21,7 @@ public class PedidoDTO {
 	private List<ItemPedidoDTO> itemPedidos;
 	private Double total;
 
-	public PedidoDTO() {
-
-	}
+	
 
 	public PedidoDTO(Pedido pedido) {
 
@@ -37,44 +42,22 @@ public class PedidoDTO {
 		return soma;
 	}
 
-	public Integer getId() {
-		return id;
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PedidoDTO other = (PedidoDTO) obj;
+		return Objects.equals(id, other.id);
 	}
 
-	public String getClienteNome() {
-		return clienteNome;
-	}
-
-	public void setClienteNome(String clienteNome) {
-		this.clienteNome = clienteNome;
-	}
-
-	public LocalDate getDataPedido() {
-		return dataPedido;
-	}
-
-	public void setDataPedido(LocalDate dataPedido) {
-		this.dataPedido = dataPedido;
-	}
-
-	public List<ItemPedidoDTO> getItemPedidos() {
-		return itemPedidos;
-	}
-
-	public void setItemPedidos(List<ItemPedidoDTO> itemPedidos) {
-		this.itemPedidos = itemPedidos;
-	}
-
-	public Double getTotal() {
-		return total;
-	}
-
-	public void setTotal(Double total) {
-		this.total = total;
-	}
-
+	
 }

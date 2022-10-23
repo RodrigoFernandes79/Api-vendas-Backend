@@ -1,6 +1,7 @@
 package com.rodrigo.vendas.domain;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -13,6 +14,15 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 @Entity
 public class Cliente {
 	@Id
@@ -25,47 +35,30 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY) // EAGER:carrega a lista de pedidos do cliente
 	private Set<Pedido> pedidos = new HashSet<>();
 
-	public Cliente() {
-
-	}
-
 	public Cliente(Integer id, String nome, String cpf) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
+		
+		
 	}
 
-	public Integer getId() {
-		return id;
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
-
-	public void setId(Integer id) {
-		this.id = id;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		return Objects.equals(id, other.id);
 	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public Set<Pedido> getPedidos() {
-		return pedidos;
-	}
-
-	public void setPedidos(Set<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
+	
 
 }

@@ -3,6 +3,7 @@ package com.rodrigo.vendas.domain;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,15 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 @Entity
 public class Pedido {
 	@Id
@@ -28,10 +38,7 @@ public class Pedido {
 	private List<ItemPedido> itemPedidos = new ArrayList<>();
 	private LocalDate dataPedido;
 
-	public Pedido() {
-		super();
-
-	}
+	
 
 	public Pedido(Integer id, Cliente cliente, LocalDate dataPedido) {
 		super();
@@ -42,36 +49,27 @@ public class Pedido {
 
 	}
 
-	public Integer getId() {
-		return id;
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pedido other = (Pedido) obj;
+		return Objects.equals(id, other.id);
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	public List<ItemPedido> getItemPedidos() {
-		return itemPedidos;
-	}
-
-	public void setItemPedidos(List<ItemPedido> itemPedidos) {
-		this.itemPedidos = itemPedidos;
-	}
-
-	public LocalDate getDataPedido() {
-		return dataPedido;
-	}
-
-	public void setDataPedido(LocalDate dataPedido) {
-		this.dataPedido = dataPedido;
-	}
-
+	
+	
 }

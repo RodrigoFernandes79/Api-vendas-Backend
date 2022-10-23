@@ -1,5 +1,7 @@
 package com.rodrigo.vendas.domain;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +11,15 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 @Entity
 public class ItemPedido {
 	@Id
@@ -24,10 +35,6 @@ public class ItemPedido {
 	private Integer quantidade;
 	private Double subTotal;
 
-	public ItemPedido() {
-
-	}
-
 	public ItemPedido(Integer id, Pedido pedido, Produto produto, Integer quantidade) {
 		super();
 		this.id = id;
@@ -41,44 +48,23 @@ public class ItemPedido {
 		return produto.getPrecoUnitario() * quantidade;
 	}
 
-	public Integer getId() {
-		return id;
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemPedido other = (ItemPedido) obj;
+		return Objects.equals(id, other.id);
 	}
-
-	public Pedido getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
-
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	public Double getSubTotal() {
-		return subTotal;
-	}
-
-	public void setSubTotal(Double subTotal) {
-		this.subTotal = subTotal;
-	}
+	
+	
 
 }

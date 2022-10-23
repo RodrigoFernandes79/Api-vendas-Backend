@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.rodrigo.vendas.DTOs.PedidoDTO;
 import com.rodrigo.vendas.domain.ItemPedido;
@@ -56,5 +58,15 @@ public class PedidoService {
 		
 		return pedido;
 	}
+
+	public Pedido listarPedidoPorId(Integer id) {
+		
+		Pedido obj = pedidoRepository.findById(id).
+					orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Id "+id+ " não encontrado"));
+		
+		return obj;
+	}
+	
+	
 
 }
