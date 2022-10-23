@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.rodrigo.vendas.domain.Pedido;
+import com.rodrigo.vendas.domain.enums.StatusPedido;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class PedidoDTO {
 	private Integer id;
 	private String clienteNome;
 	private LocalDate dataPedido;
+	private StatusPedido status;
 	private List<ItemPedidoDTO> itemPedidos;
 	private Double total;
 
@@ -29,7 +31,8 @@ public class PedidoDTO {
 		this.setClienteNome(pedido.getCliente().getNome());
 		this.itemPedidos = pedido.getItemPedidos().stream().map(ItemPedidoDTO::new).collect(Collectors.toList());
 		this.dataPedido = pedido.getDataPedido();
-		this.setTotal(somaTotal());
+		this.status = pedido.getStatus();
+		this.total = somaTotal();
 
 	}
 
@@ -41,6 +44,12 @@ public class PedidoDTO {
 		}
 		return soma;
 	}
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public int hashCode() {

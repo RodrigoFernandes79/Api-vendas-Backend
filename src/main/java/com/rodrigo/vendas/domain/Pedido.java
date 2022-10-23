@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.rodrigo.vendas.domain.enums.StatusPedido;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +36,8 @@ public class Pedido {
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
+	@Enumerated(EnumType.STRING)
+	private StatusPedido status;
 	@JsonManagedReference
 	@OneToMany(mappedBy = "pedido")
 	private List<ItemPedido> itemPedidos = new ArrayList<>();
@@ -40,11 +45,11 @@ public class Pedido {
 
 	
 
-	public Pedido(Integer id, Cliente cliente, LocalDate dataPedido) {
+	public Pedido(Integer id, Cliente cliente, LocalDate dataPedido, StatusPedido status) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
-
+		this.status = status;
 		this.dataPedido = dataPedido;
 
 	}

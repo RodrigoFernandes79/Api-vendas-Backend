@@ -18,7 +18,7 @@ public class ItemPedidoDTO {
 	private String produto;
 	private Double precoUnitario;
 	private Integer quantidade;
-
+	
 	
 
 	public ItemPedidoDTO(ItemPedido itemPedido) {
@@ -26,6 +26,7 @@ public class ItemPedidoDTO {
 		this.produto = itemPedido.getProduto().getDescricaoProduto();
 		this.precoUnitario = itemPedido.getProduto().getPrecoUnitario();
 		this.quantidade = itemPedido.getQuantidade();
+		
 
 	}
 

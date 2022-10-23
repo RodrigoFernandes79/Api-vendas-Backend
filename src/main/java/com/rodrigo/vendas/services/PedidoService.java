@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.rodrigo.vendas.DTOs.PedidoDTO;
 import com.rodrigo.vendas.domain.ItemPedido;
 import com.rodrigo.vendas.domain.Pedido;
+import com.rodrigo.vendas.domain.enums.StatusPedido;
 import com.rodrigo.vendas.repositories.ItemPedidoRepository;
 import com.rodrigo.vendas.repositories.PedidoRepository;
 import com.rodrigo.vendas.services.exceptions.EntityNotFoundException;
@@ -30,9 +31,11 @@ public class PedidoService {
 	private ItemPedidoRepository itemRepository;
 
 	public List<PedidoDTO> listarPedidos() {
+		
+		
 		List<Pedido> obj = pedidoRepository.findAll();
 
-		List<PedidoDTO> objDto = obj.stream().map(objList -> new PedidoDTO(objList)).collect(Collectors.toList());
+	List<PedidoDTO> objDto = obj.stream().map(objList -> new PedidoDTO(objList)).collect(Collectors.toList());
 
 		return objDto;
 	}
@@ -40,7 +43,7 @@ public class PedidoService {
 	public Pedido inserirPedido(Pedido pedido) {
 		pedido.setDataPedido(LocalDate.now());
 		pedido.setCliente(clienteService.listarClientePorId(pedido.getCliente().getId()));
-
+		pedido.setStatus(StatusPedido.REALIZADO);
 		pedido = pedidoRepository.save(pedido);
 		for (ItemPedido itemPedidos : pedido.getItemPedidos()) {
 
@@ -63,5 +66,9 @@ public class PedidoService {
 
 		return obj;
 	}
+
+
+	
+	
 
 }
