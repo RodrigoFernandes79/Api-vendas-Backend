@@ -3,13 +3,12 @@ package com.rodrigo.vendas.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.rodrigo.vendas.domain.Produto;
 import com.rodrigo.vendas.repositories.ProdutoRepository;
+import com.rodrigo.vendas.services.exceptions.DataViolationException;
+import com.rodrigo.vendas.services.exceptions.EntityNotFoundException;
 
 @Service
 public class ProdutoService {
@@ -26,7 +25,7 @@ public class ProdutoService {
 		Produto descProduto = produtoRepository.findByDescricaoProduto(produto.getDescricaoProduto());
 
 		if (descProduto != null) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+			throw new DataViolationException(
 					"Produto  " + produto.getDescricaoProduto() + " já existe no Banco de Dados!");
 		}
 
@@ -37,7 +36,7 @@ public class ProdutoService {
 	public Produto listarProdutoPorId(Integer id) {
 
 		Produto obj = produtoRepository.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id " + id + " não encontrado"));
+				.orElseThrow(() -> new EntityNotFoundException("Id " + id + " não encontrado"));
 		return obj;
 	}
 
@@ -49,12 +48,12 @@ public class ProdutoService {
 
 	public void deletarProdutoPorId(Integer id) {
 		try {
-			Produto prod = produtoRepository.findById(id).orElseThrow(
-					() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id " + id + " não encontrado"));
+			Produto prod = produtoRepository.findById(id)
+					.orElseThrow(() -> new EntityNotFoundException("Id " + id + " não encontrado"));
 
 			produtoRepository.delete(prod);
-		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityViolationException("Produto não pôde ser deletado. Existem pedidos associados");
+		} catch (DataViolationException e) {
+			throw new DataViolationException("Produto não pôde ser deletado. Existem pedidos associados");
 		}
 
 	}
@@ -63,7 +62,7 @@ public class ProdutoService {
 		Produto desProd = produtoRepository.findByDescricaoProduto(produto.getDescricaoProduto());
 
 		if (desProd != null && desProd.getId() != id) {
-			throw new DataIntegrityViolationException(
+			throw new DataViolationException(
 					"Descrição " + produto.getDescricaoProduto() + " já existe no Banco de Dados");
 		}
 
@@ -75,7 +74,7 @@ public class ProdutoService {
 			Produto obj = produtoRepository.save(newProd);
 
 			return obj;
-		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id " + id + " não encontrado"));
+		}).orElseThrow(() -> new EntityNotFoundException("Id " + id + " não encontrado"));
 
 	}
 

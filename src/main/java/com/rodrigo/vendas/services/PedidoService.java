@@ -5,15 +5,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.rodrigo.vendas.DTOs.PedidoDTO;
 import com.rodrigo.vendas.domain.ItemPedido;
 import com.rodrigo.vendas.domain.Pedido;
 import com.rodrigo.vendas.repositories.ItemPedidoRepository;
 import com.rodrigo.vendas.repositories.PedidoRepository;
+import com.rodrigo.vendas.services.exceptions.EntityNotFoundException;
 
 @Service
 public class PedidoService {
@@ -23,13 +22,13 @@ public class PedidoService {
 
 	@Autowired
 	private ClienteService clienteService;
-	
+
 	@Autowired
 	private ProdutoService produtoService;
-	
+
 	@Autowired
 	private ItemPedidoRepository itemRepository;
-	
+
 	public List<PedidoDTO> listarPedidos() {
 		List<Pedido> obj = pedidoRepository.findAll();
 
@@ -41,32 +40,28 @@ public class PedidoService {
 	public Pedido inserirPedido(Pedido pedido) {
 		pedido.setDataPedido(LocalDate.now());
 		pedido.setCliente(clienteService.listarClientePorId(pedido.getCliente().getId()));
-		
+
 		pedido = pedidoRepository.save(pedido);
-		for(ItemPedido itemPedidos : pedido.getItemPedidos()) {
-			
+		for (ItemPedido itemPedidos : pedido.getItemPedidos()) {
+
 			itemPedidos.setProduto(produtoService.listarProdutoPorId(itemPedidos.getProduto().getId()));
 			itemPedidos.setQuantidade(itemPedidos.getQuantidade());
 			itemPedidos.setSubTotal(itemPedidos.subTotal());
 			itemPedidos.setPedido(pedido);
-			
+
 		}
-	
+
 		itemRepository.saveAll(pedido.getItemPedidos());
-		
-		
-		
+
 		return pedido;
 	}
 
 	public Pedido listarPedidoPorId(Integer id) {
-		
-		Pedido obj = pedidoRepository.findById(id).
-					orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Id "+id+ " não encontrado"));
-		
+
+		Pedido obj = pedidoRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("Id " + id + " não Encontrado"));
+
 		return obj;
 	}
-	
-	
 
 }

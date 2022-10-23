@@ -7,12 +7,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.rodrigo.vendas.domain.Cliente;
 import com.rodrigo.vendas.repositories.ClienteRepository;
+import com.rodrigo.vendas.services.exceptions.DataViolationException;
+import com.rodrigo.vendas.services.exceptions.EntityNotFoundException;
 
 @Service
 public class ClienteService {
@@ -24,7 +24,7 @@ public class ClienteService {
 		Cliente cli = clienteRepository.findBycpf(cliente.getCpf());
 
 		if (cli != null) {
-			throw new DataIntegrityViolationException("CPF já existe no Banco de Dados");
+			throw new DataViolationException("CPF já existe no Banco de Dados");
 		} else {
 			return clienteRepository.save(cliente);
 		}
@@ -34,19 +34,19 @@ public class ClienteService {
 
 		Optional<Cliente> obj = clienteRepository.findById(id);
 
-		return obj.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+		return obj.orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
 
 	}
 
 	public void deletarCliente(Integer id) {
 		try {
 			Cliente obj = clienteRepository.findById(id)
-					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+					.orElseThrow(() -> new EntityNotFoundException("Cliente não Encontrado!"));
 
 			clienteRepository.delete(obj);
 
-		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityViolationException("Cliente não pode ser deletado.Possui pedidos associados");
+		} catch (DataViolationException e) {
+			throw new DataViolationException("Cliente não pode ser deletado.Possui pedidos associados");
 		}
 	}
 
@@ -54,7 +54,7 @@ public class ClienteService {
 		Cliente client = clienteRepository.findBycpf(cliente.getCpf());
 
 		if (client != null && client.getId() != id) {
-			throw new DataIntegrityViolationException("CPF Já existe no banco de dados");
+			throw new DataViolationException("CPF Já existe no banco de dados");
 		}
 		return clienteRepository.findById(id).map(cli -> {
 			cli.getId();
@@ -64,7 +64,7 @@ public class ClienteService {
 			Cliente obj = clienteRepository.save(cli);
 
 			return obj;
-		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!"));
+		}).orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado!"));
 	}
 
 	public Page<Cliente> listarClientesPorNome(String nome, Integer page, Integer linesPerPages, String orderBy,
