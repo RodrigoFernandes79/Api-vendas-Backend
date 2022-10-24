@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.rodrigo.vendas.domain.Pedido;
-import com.rodrigo.vendas.domain.enums.StatusPedido;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -70,9 +70,7 @@ public class PedidoService {
 
 
 	public void atualizarStatusPedido(Integer id, String status) {
-		 pedidoRepository.findById(id).map(obj -> {
-		;
-		
+		 pedidoRepository.findById(id).map(obj -> {	
 		obj.setStatus(status);
 		Pedido ped = pedidoRepository.save(obj);
 		return ped;
