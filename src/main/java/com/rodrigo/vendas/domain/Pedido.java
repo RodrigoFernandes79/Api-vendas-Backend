@@ -45,23 +45,31 @@ public class Pedido {
 
 	
 
-	public Pedido(Integer id, Cliente cliente, LocalDate dataPedido, StatusPedido status) {
+	public Pedido(Integer id, Cliente cliente, LocalDate dataPedido,StatusPedido status) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
-		this.status = status;
+		
 		this.dataPedido = dataPedido;
+		this.status = status;
+	}
 
+	public StatusPedido getStatus() {
+		return this.status;
 	}
 
 
+
+	public void setStatus(String status) {
+		this.status = StatusPedido.toEnum(status);
+	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
 
-
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -74,6 +82,14 @@ public class Pedido {
 		Pedido other = (Pedido) obj;
 		return Objects.equals(id, other.id);
 	}
+
+
+
+	
+
+
+
+	
 
 	
 	

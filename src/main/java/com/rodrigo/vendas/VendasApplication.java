@@ -50,7 +50,7 @@ public class VendasApplication implements CommandLineRunner {
 		clienteRepository.saveAll(Arrays.asList(cli1));
 
 		Pedido ped1 = new Pedido(null, cli1 ,LocalDate.now(), StatusPedido.REALIZADO);
-		Pedido ped2 = new Pedido(null, cli1, LocalDate.of(2022, 8, 25),StatusPedido.REALIZADO);
+		Pedido ped2 = new Pedido(null, cli1, LocalDate.of(2022, 8, 25),StatusPedido.REALIZADO );
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));

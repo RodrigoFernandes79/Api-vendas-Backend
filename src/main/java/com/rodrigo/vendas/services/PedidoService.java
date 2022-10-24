@@ -43,7 +43,7 @@ public class PedidoService {
 	public Pedido inserirPedido(Pedido pedido) {
 		pedido.setDataPedido(LocalDate.now());
 		pedido.setCliente(clienteService.listarClientePorId(pedido.getCliente().getId()));
-		pedido.setStatus(StatusPedido.REALIZADO);
+		pedido.setStatus(StatusPedido.REALIZADO.getDescricao());
 		pedido = pedidoRepository.save(pedido);
 		for (ItemPedido itemPedidos : pedido.getItemPedidos()) {
 
@@ -68,6 +68,21 @@ public class PedidoService {
 	}
 
 
+
+	public void atualizarStatusPedido(Integer id, String status) {
+		 pedidoRepository.findById(id).map(obj -> {
+		;
+		
+		obj.setStatus(status);
+		Pedido ped = pedidoRepository.save(obj);
+		return ped;
+		}).orElseThrow(() -> new EntityNotFoundException("ID "+id+" não encontrado!"));
+
+		
+	}
+
+
+	
 	
 	
 

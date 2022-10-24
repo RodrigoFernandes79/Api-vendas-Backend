@@ -19,7 +19,7 @@ public class PedidoDTO {
 	private Integer id;
 	private String clienteNome;
 	private LocalDate dataPedido;
-	private StatusPedido status;
+	private String status;
 	private List<ItemPedidoDTO> itemPedidos;
 	private Double total;
 
@@ -31,7 +31,7 @@ public class PedidoDTO {
 		this.setClienteNome(pedido.getCliente().getNome());
 		this.itemPedidos = pedido.getItemPedidos().stream().map(ItemPedidoDTO::new).collect(Collectors.toList());
 		this.dataPedido = pedido.getDataPedido();
-		this.status = pedido.getStatus();
+		this.status = pedido.getStatus().getDescricao();
 		this.total = somaTotal();
 
 	}
