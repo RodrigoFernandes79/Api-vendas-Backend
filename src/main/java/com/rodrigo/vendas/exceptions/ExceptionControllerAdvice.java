@@ -1,11 +1,14 @@
 package com.rodrigo.vendas.exceptions;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -39,4 +42,23 @@ public class ExceptionControllerAdvice {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ApiException> methodArgumentNotValid(MethodArgumentNotValidException e,
+			HttpServletRequest request) {
+
+		List<String> getErro = new ArrayList<>();
+		e.getBindingResult().getAllErrors().forEach((obj) -> {
+			String erroMensagem = obj.getDefaultMessage();
+			getErro.add(erroMensagem);
+		});
+
+		ApiException err = new ApiException();
+		err.setTimestamp(LocalDateTime.now());
+		err.setMensagem(getErro.toString());
+		err.setStatus(HttpStatus.BAD_REQUEST.value());
+		err.setPath(request.getRequestURI());
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+
+	}
 }

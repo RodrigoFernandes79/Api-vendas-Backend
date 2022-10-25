@@ -1,5 +1,7 @@
 package com.rodrigo.vendas.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -26,7 +28,7 @@ public class ClienteController {
 	private ClienteService clienteService;
 
 	@PostMapping
-	public ResponseEntity<Cliente> inserirCliente(@RequestBody Cliente cliente) {
+	public ResponseEntity<Cliente> inserirCliente(@Valid @RequestBody Cliente cliente) {
 
 		Cliente obj = clienteService.salvar(cliente);
 
