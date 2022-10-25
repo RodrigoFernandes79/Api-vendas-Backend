@@ -2,6 +2,8 @@ package com.rodrigo.vendas.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +37,7 @@ public class ProdutoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Produto> inserirProduto(@RequestBody Produto produto) {
+	public ResponseEntity<Produto> inserirProduto(@Valid @RequestBody Produto produto) {
 
 		Produto obj = produtoService.inserirProduto(produto);
 
@@ -67,7 +69,8 @@ public class ProdutoController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Produto> atualizarProdutoPorId(@PathVariable Integer id, @RequestBody Produto produto) {
+	public ResponseEntity<Produto> atualizarProdutoPorId(@PathVariable Integer id,
+			@Valid @RequestBody Produto produto) {
 
 		Produto prod = produtoService.atualizarProdutoPorId(id, produto);
 
