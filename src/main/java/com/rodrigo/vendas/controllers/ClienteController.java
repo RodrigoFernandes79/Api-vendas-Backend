@@ -53,7 +53,7 @@ public class ClienteController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Cliente> atualizarCliente(@PathVariable Integer id, @RequestBody Cliente cliente) {
+	public ResponseEntity<Cliente> atualizarCliente(@PathVariable Integer id,@Valid @RequestBody Cliente cliente) {
 
 		Cliente obj = clienteService.atualizarCliente(id, cliente);
 
