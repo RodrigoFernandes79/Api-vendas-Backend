@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -29,9 +31,11 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@NotEmpty(message ="Cliente não encontrado!")
+	@NotEmpty(message = "O campo CLIENTE é obrigatório!")
 	private String nome;
 	@Column(length = 11)
+	@CPF(message = "Informe um CPF válido")
+	@NotEmpty(message = "O campo CPF é obrigatório!")
 	private String cpf;
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY) // EAGER:carrega a lista de pedidos do cliente

@@ -46,7 +46,7 @@ public class VendasApplication implements CommandLineRunner {
 
 		produtoRepository.saveAll(Arrays.asList(prod1, prod2));
 
-		Cliente cli1 = new Cliente(null, "Pedro Almeida", "34544334412");
+		Cliente cli1 = new Cliente(null, "Pedro Almeida", "71653139315");
 		clienteRepository.saveAll(Arrays.asList(cli1));
 
 		Pedido ped1 = new Pedido(null, cli1 ,LocalDate.now(), StatusPedido.REALIZADO);
