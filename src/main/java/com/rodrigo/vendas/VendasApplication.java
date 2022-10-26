@@ -3,6 +3,8 @@ package com.rodrigo.vendas;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -37,7 +39,7 @@ public class VendasApplication implements CommandLineRunner {
 		SpringApplication.run(VendasApplication.class, args);
 
 	}
-
+	
 	@Override
 	public void run(String... args) throws Exception {
 
@@ -59,8 +61,11 @@ public class VendasApplication implements CommandLineRunner {
 		ItemPedido item2 = new ItemPedido(null, ped2, prod2, 2);
 		item1.setSubTotal(item1.subTotal());
 		item2.setSubTotal(item2.subTotal());
+		
+		
 		itemPedidoRepository.saveAll(Arrays.asList(item1, item2));
-
+		
+		
 	}
 
 }

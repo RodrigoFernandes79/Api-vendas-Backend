@@ -29,34 +29,44 @@ public class PedidoService {
 
 	@Autowired
 	private ItemPedidoRepository itemRepository;
+	
+	
 
 	public List<PedidoDTO> listarPedidos() {
-		
-		
+
 		List<Pedido> obj = pedidoRepository.findAll();
 
-	List<PedidoDTO> objDto = obj.stream().map(objList -> new PedidoDTO(objList)).collect(Collectors.toList());
+		List<PedidoDTO> objDto = obj.stream().map(objList -> new PedidoDTO(objList)).collect(Collectors.toList());
 
 		return objDto;
 	}
 
-	public Pedido inserirPedido(Pedido pedido) {
+	public PedidoDTO inserirPedido(Pedido pedido) {
+		
+		
 		pedido.setDataPedido(LocalDate.now());
 		pedido.setCliente(clienteService.listarClientePorId(pedido.getCliente().getId()));
 		pedido.setStatus(StatusPedido.REALIZADO.getDescricao());
 		pedido = pedidoRepository.save(pedido);
+		
 		for (ItemPedido itemPedidos : pedido.getItemPedidos()) {
 
 			itemPedidos.setProduto(produtoService.listarProdutoPorId(itemPedidos.getProduto().getId()));
 			itemPedidos.setQuantidade(itemPedidos.getQuantidade());
-			itemPedidos.setSubTotal(itemPedidos.subTotal());
-			itemPedidos.setPedido(pedido);
-
+			itemPedidos.subTotal();
+			
+		
+			
 		}
-
+		if(pedido.getItemPedidos()==null || pedido.getItemPedidos().isEmpty()) {
+			
+			throw new EntityNotFoundException("Item de Pedido obrigatório");
+		}
+		
 		itemRepository.saveAll(pedido.getItemPedidos());
-
-		return pedido;
+		PedidoDTO pedidoDto = new PedidoDTO(pedido);
+		
+		return pedidoDto;
 	}
 
 	public Pedido listarPedidoPorId(Integer id) {
@@ -67,21 +77,22 @@ public class PedidoService {
 		return obj;
 	}
 
-
-
 	public void atualizarStatusPedido(Integer id, String status) {
-		 pedidoRepository.findById(id).map(obj -> {	
-		obj.setStatus(status);
-		Pedido ped = pedidoRepository.save(obj);
-		return ped;
-		}).orElseThrow(() -> new EntityNotFoundException("ID "+id+" não encontrado!"));
+		pedidoRepository.findById(id).map(obj -> {
+			obj.setStatus(status);
+			Pedido ped = pedidoRepository.save(obj);
+			return ped;
+		}).orElseThrow(() -> new EntityNotFoundException("ID " + id + " não encontrado!"));
 
-		
 	}
+	public  PedidoDTO convertToDTO(Pedido pedido) {
+		
+		PedidoDTO pedDto = new PedidoDTO(pedido);
+				
+				return pedDto;
+				
+				
 
-
-	
-	
-	
+}
 
 }

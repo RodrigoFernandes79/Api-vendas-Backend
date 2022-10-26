@@ -34,30 +34,30 @@ public class PedidoController {
 
 		return ResponseEntity.ok().body(objDTO);
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<Pedido> inserirPedido(@RequestBody Pedido pedido){
-		Pedido obj = pedidoService.inserirPedido(pedido);
+	public ResponseEntity<PedidoDTO> inserirPedido(@RequestBody Pedido pedido) {
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(obj);
+		
+		PedidoDTO objDto = pedidoService.inserirPedido(pedido);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(objDto);
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<Pedido> listarPedidoPorId(@PathVariable Integer id){
-		
+	public ResponseEntity<Pedido> listarPedidoPorId(@PathVariable Integer id) {
+
 		Pedido objDto = pedidoService.listarPedidoPorId(id);
 		return ResponseEntity.ok().body(objDto);
-		
+
 	}
-	
+
 	@Transactional
 	@PatchMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void atualizarStatusPedido(@PathVariable Integer id, @RequestBody String status) {
-		
+
 		pedidoService.atualizarStatusPedido(id, status);
-		
-		
-		 
+
 	}
 }

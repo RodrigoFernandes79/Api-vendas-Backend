@@ -19,7 +19,9 @@ public class PedidoDTO {
 	private String clienteNome;
 	private LocalDate dataPedido;
 	private String status;
-	private List<ItemPedidoDTO> itemPedidos;
+	
+	
+	List<ItemPedidoDTO> itemPedidos;
 	private Double total;
 
 	
@@ -27,7 +29,7 @@ public class PedidoDTO {
 	public PedidoDTO(Pedido pedido) {
 
 		this.id = pedido.getId();
-		this.setClienteNome(pedido.getCliente().getNome());
+		this.clienteNome = pedido.getCliente().getNome();
 		this.itemPedidos = pedido.getItemPedidos().stream().map(ItemPedidoDTO::new).collect(Collectors.toList());
 		this.dataPedido = pedido.getDataPedido();
 		this.status = pedido.getStatus().getDescricao();

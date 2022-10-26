@@ -52,5 +52,7 @@ public class ItemPedidoDTO {
 				&& Objects.equals(quantidade, other.quantidade);
 	}
 
+	
+
 		
 }

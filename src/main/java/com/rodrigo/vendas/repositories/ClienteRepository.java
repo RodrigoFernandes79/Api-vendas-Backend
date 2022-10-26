@@ -15,6 +15,8 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 	// findByNomeIgnoreCaseContaining = ignora letras maiusculas e minusculas e
 	// Containing = LIKE
 	Page<Cliente> findByNomeIgnoreCaseContaining(String nome, PageRequest pageRequest);
+	
+	Cliente findByNome(String nome);
 
 	// consulta com sql nativo:
 	// @Query(value="SELECT * FROM Cliente WHERE nome ILIKE '%:nome%' ", nativeQuery

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintValidatorContext;
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,8 @@ public class ExceptionControllerAdvice {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 
 	}
+	
+	
 
 	@ExceptionHandler(DataViolationException.class)
 	public ResponseEntity<ApiException> dataIntegrityViolation(DataViolationException e, HttpServletRequest request) {
@@ -61,4 +65,6 @@ public class ExceptionControllerAdvice {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 
 	}
+	
+	
 }

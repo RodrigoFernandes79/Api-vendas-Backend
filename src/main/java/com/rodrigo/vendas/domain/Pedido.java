@@ -38,6 +38,7 @@ public class Pedido {
 	private Cliente cliente;
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
+	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "pedido")
 	private List<ItemPedido> itemPedidos = new ArrayList<>();
@@ -82,6 +83,10 @@ public class Pedido {
 		Pedido other = (Pedido) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	
+
+	 
 
 
 
