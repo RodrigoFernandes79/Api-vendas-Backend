@@ -1,7 +1,6 @@
 package com.rodrigo.vendas.domain;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,7 +40,7 @@ public class Pedido {
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "pedido")
-	private List<ItemPedido> itemPedidos = new ArrayList<>();
+	private List<ItemPedido> itemPedidos;
 	private LocalDate dataPedido;
 
 	

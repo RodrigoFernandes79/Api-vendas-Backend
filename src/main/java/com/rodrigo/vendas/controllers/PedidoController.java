@@ -37,8 +37,7 @@ public class PedidoController {
 
 	@PostMapping
 	public ResponseEntity<PedidoDTO> inserirPedido(@RequestBody Pedido pedido) {
-		
-		
+
 		PedidoDTO objDto = pedidoService.inserirPedido(pedido);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(objDto);

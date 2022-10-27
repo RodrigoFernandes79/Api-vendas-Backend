@@ -60,7 +60,7 @@ public class PedidoService {
 		}
 		if(pedido.getItemPedidos()==null || pedido.getItemPedidos().isEmpty()) {
 			
-			throw new EntityNotFoundException("Item de Pedido obrigatório");
+			throw new EntityNotFoundException("Pedido não pode ser realizando sem itens ");
 		}
 		
 		itemRepository.saveAll(pedido.getItemPedidos());
