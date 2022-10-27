@@ -54,21 +54,17 @@ public class PedidoService {
 			itemPedidos.setProduto(produtoService.listarProdutoPorId(itemPedidos.getProduto().getId()));
 			itemPedidos.setQuantidade(itemPedidos.getQuantidade());
 			itemPedidos.subTotal();
-			
 		
 			
 		}
-		if(pedido.getItemPedidos()==null || pedido.getItemPedidos().isEmpty()) {
-			
-			throw new EntityNotFoundException("Pedido não pode ser realizando sem itens ");
-		}
+		
 		
 		itemRepository.saveAll(pedido.getItemPedidos());
 		PedidoDTO pedidoDto = new PedidoDTO(pedido);
 		
 		return pedidoDto;
-	}
-
+	
+		}
 	public Pedido listarPedidoPorId(Integer id) {
 
 		Pedido obj = pedidoRepository.findById(id)

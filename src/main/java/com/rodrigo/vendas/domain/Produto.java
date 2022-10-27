@@ -19,9 +19,9 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@NotEmpty(message = "O campo DESCRIÇÃO é obrigatório!")
+	
 	private String descricaoProduto;
-	@NotNull(message = "O campo PREÇO é obrigatório!")
+	
 	private Double precoUnitario;
 
 	
