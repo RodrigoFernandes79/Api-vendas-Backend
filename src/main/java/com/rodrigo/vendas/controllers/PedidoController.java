@@ -3,6 +3,7 @@ package com.rodrigo.vendas.controllers;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,7 @@ public class PedidoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<PedidoDTO> inserirPedido(@RequestBody Pedido pedido) {
+	public ResponseEntity<PedidoDTO> inserirPedido(@Valid @RequestBody Pedido pedido) {
 
 		PedidoDTO objDto = pedidoService.inserirPedido(pedido);
 

@@ -1,6 +1,7 @@
 package com.rodrigo.vendas.domain;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.rodrigo.vendas.domain.enums.StatusPedido;
@@ -34,22 +36,21 @@ public class Pedido {
 
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
+	@NotNull(message = "O CAMPO cliente não pode ser vazio.")
 	private Cliente cliente;
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
-	
+
 	@JsonManagedReference
 	@OneToMany(mappedBy = "pedido")
-	private List<ItemPedido> itemPedidos;
+	private List<ItemPedido> itemPedidos = new ArrayList<>();
 	private LocalDate dataPedido;
 
-	
-
-	public Pedido(Integer id, Cliente cliente, LocalDate dataPedido,StatusPedido status) {
+	public Pedido(Integer id, Cliente cliente, LocalDate dataPedido, StatusPedido status) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
-		
+
 		this.dataPedido = dataPedido;
 		this.status = status;
 	}
@@ -57,8 +58,6 @@ public class Pedido {
 	public StatusPedido getStatus() {
 		return this.status;
 	}
-
-
 
 	public void setStatus(String status) {
 		this.status = StatusPedido.toEnum(status);
@@ -68,8 +67,6 @@ public class Pedido {
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-
-	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -83,18 +80,4 @@ public class Pedido {
 		return Objects.equals(id, other.id);
 	}
 
-	
-
-	 
-
-
-
-	
-
-
-
-	
-
-	
-	
 }
