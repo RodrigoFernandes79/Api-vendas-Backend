@@ -31,7 +31,13 @@ public class SegurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		// Configurar a autorização(Pegar se o usuario que foi autenticado pelo método acima e verificar se 
 		//ele tem autorização para uma determinada pagina.Quem tem acesso ao quê
-		super.configure(http);
+		http
+		.csrf().disable()
+		.authorizeRequests()
+		.antMatchers("/api/clientes/**")
+		.authenticated()
+		.and()
+		.formLogin();
 	}
 
 	
