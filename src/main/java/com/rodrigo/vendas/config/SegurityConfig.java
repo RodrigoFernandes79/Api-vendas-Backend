@@ -13,15 +13,18 @@ public class SegurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		PasswordEncoder passwordEncoder = new PasswordEncoder() {
 //método para encriptografar a senha
 			return new BCryptPasswordEncoder();
 	}
-
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		//Configurar a autenticação:
-		super.configure(auth);
+		auth.inMemoryAuthentication()
+		.passwordEncoder(passwordEncoder())
+		.withUser("Rodrigo")
+		.password(passwordEncoder().encode("123"))
+		.roles("USER");
 	}
 
 	@Override
