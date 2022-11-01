@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintValidatorContext;
-import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.rodrigo.vendas.services.exceptions.DataViolationException;
 import com.rodrigo.vendas.services.exceptions.EntityNotFoundException;
+import com.rodrigo.vendas.services.exceptions.UsernameNotFoundException;
 
 @ControllerAdvice
 public class ExceptionControllerAdvice {
@@ -64,6 +63,19 @@ public class ExceptionControllerAdvice {
 
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 
+	}
+	
+	@ExceptionHandler(UsernameNotFoundException.class)
+	public ResponseEntity<ApiException> userNameException(
+			UsernameNotFoundException e, HttpServletRequest request){
+		
+		ApiException api = new ApiException();
+				api.setTimestamp(LocalDateTime.now());
+				api.setMensagem(e.getMessage());
+				api.setStatus(HttpStatus.NOT_FOUND.value());
+				api.setPath(request.getRequestURI());
+				
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(api);
 	}
 	
 	

@@ -1,30 +1,43 @@
 package com.rodrigo.vendas.services.security;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.rodrigo.vendas.domain.Usuario;
+import com.rodrigo.vendas.repositories.UsuarioRepository;
 //Classe que carrega o usuario na base de dados através do login
 @Service
 public class UsuarioService implements UserDetailsService{
 	
+	
 	@Autowired
-	private PasswordEncoder encoder;
+	private UsuarioRepository usuarioRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		if(!username.equals("Rodrigo")) {
-			throw new UsernameNotFoundException("Usuário não encontrado.");
-		}
+		Usuario usuario = usuarioRepository.findByLogin(username)
+				.orElseThrow(()-> new UsernameNotFoundException("Usuário não encontrado na base de dados."));
+		
+		String[] roles = usuario.isAdmin() ? new String[]{"ADMIN","USER"} : new String[]{"USER"};
+		
 		return User
 				.builder()
-				.username("Rodrigo")
-				.password(encoder.encode("123"))
-				.roles("USER","ADMIN")
+				.username(usuario.getLogin())
+				.password(usuario.getSenha())
+				.roles(roles)
 				.build();
+	}
+	@Transactional
+	public Usuario salvarUsuario( Usuario usuario) {
+		Usuario obj = usuarioRepository.save(usuario);
+		
+		return obj;
 	}
 
 }

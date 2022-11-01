@@ -18,21 +18,22 @@ import com.rodrigo.vendas.repositories.ItemPedidoRepository;
 import com.rodrigo.vendas.repositories.PedidoRepository;
 import com.rodrigo.vendas.repositories.ProdutoRepository;
 
+
+
 @SpringBootApplication
-public class VendasApplication implements CommandLineRunner {
-
-	@Autowired
-	private ClienteRepository clienteRepository;
-
+public class VendasApplication implements CommandLineRunner{
+		
 	@Autowired
 	private ProdutoRepository produtoRepository;
-
+	@Autowired
+	private ClienteRepository clienteRepository;
 	@Autowired
 	private PedidoRepository pedidoRepository;
-
+	
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
-
+	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(VendasApplication.class, args);
 
@@ -40,7 +41,6 @@ public class VendasApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
 		Produto prod1 = new Produto(null, "Tv 24 polegadas Samsung", 2000.95);
 		Produto prod2 = new Produto(null, "Geladeira 2.000L Brastemp", 2500.55);
 
@@ -64,4 +64,11 @@ public class VendasApplication implements CommandLineRunner {
 
 	}
 
-}
+		
+	}
+
+	
+
+	
+
+
