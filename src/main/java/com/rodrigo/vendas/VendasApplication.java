@@ -71,6 +71,11 @@ public class VendasApplication implements CommandLineRunner{
 		String token = service.gerarToken(usuario);
 		System.out.println(token);
 		
+		boolean isTokenValido = service.tokenValido(token);
+		System.out.println("O token está válido "+isTokenValido);
+		
+		System.out.println(service.obterLoginUsuario(token));
+		
 
 	}
 
