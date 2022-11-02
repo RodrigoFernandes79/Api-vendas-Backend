@@ -1,4 +1,4 @@
-package com.rodrigo.vendas.services.security;
+package com.rodrigo.vendas.services.security.jwt;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

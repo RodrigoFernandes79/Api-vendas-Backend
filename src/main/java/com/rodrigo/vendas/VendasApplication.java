@@ -18,7 +18,7 @@ import com.rodrigo.vendas.repositories.ClienteRepository;
 import com.rodrigo.vendas.repositories.ItemPedidoRepository;
 import com.rodrigo.vendas.repositories.PedidoRepository;
 import com.rodrigo.vendas.repositories.ProdutoRepository;
-import com.rodrigo.vendas.services.security.JwtService;
+import com.rodrigo.vendas.services.security.jwt.JwtService;
 
 
 
