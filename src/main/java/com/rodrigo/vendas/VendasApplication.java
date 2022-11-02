@@ -12,11 +12,14 @@ import com.rodrigo.vendas.domain.Cliente;
 import com.rodrigo.vendas.domain.ItemPedido;
 import com.rodrigo.vendas.domain.Pedido;
 import com.rodrigo.vendas.domain.Produto;
+import com.rodrigo.vendas.domain.Usuario;
 import com.rodrigo.vendas.domain.enums.StatusPedido;
 import com.rodrigo.vendas.repositories.ClienteRepository;
 import com.rodrigo.vendas.repositories.ItemPedidoRepository;
 import com.rodrigo.vendas.repositories.PedidoRepository;
 import com.rodrigo.vendas.repositories.ProdutoRepository;
+import com.rodrigo.vendas.services.security.JwtService;
+
 
 
 
@@ -33,11 +36,13 @@ public class VendasApplication implements CommandLineRunner{
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
-	
-	public static void main(String[] args) {
-		SpringApplication.run(VendasApplication.class, args);
+	@Autowired
+	private JwtService service;
 
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(VendasApplication.class, args);
 	}
+
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -61,13 +66,17 @@ public class VendasApplication implements CommandLineRunner{
 		item2.setSubTotal(item2.subTotal());
 
 		itemPedidoRepository.saveAll(Arrays.asList(item1, item2));
+		
+		Usuario usuario = Usuario.builder().login("Rodrigo").build();
+		String token = service.gerarToken(usuario);
+		System.out.println(token);
+		
 
 	}
 
 		
 	}
 
-	
 
 	
 
