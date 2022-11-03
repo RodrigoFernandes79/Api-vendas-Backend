@@ -36,8 +36,6 @@ public class VendasApplication implements CommandLineRunner{
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
-	@Autowired
-	private JwtService service;
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(VendasApplication.class, args);
@@ -67,14 +65,7 @@ public class VendasApplication implements CommandLineRunner{
 
 		itemPedidoRepository.saveAll(Arrays.asList(item1, item2));
 		
-		Usuario usuario = Usuario.builder().login("Rodrigo").build();
-		String token = service.gerarToken(usuario);
-		System.out.println(token);
 		
-		boolean isTokenValido = service.tokenValido(token);
-		System.out.println("O token está válido "+isTokenValido);
-		
-		System.out.println(service.obterLoginUsuario(token));
 		
 
 	}
