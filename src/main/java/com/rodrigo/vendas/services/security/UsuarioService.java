@@ -22,6 +22,7 @@ public class UsuarioService implements UserDetailsService{
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
+	
 	@Autowired
 	private  PasswordEncoder encoder;
 
@@ -46,7 +47,7 @@ public class UsuarioService implements UserDetailsService{
 		return obj;
 	}
 	
-	public UserDetails autenticar(Usuario usuario) {
+	public UserDetails autenticar( Usuario usuario) {
 		UserDetails user = loadUserByUsername(usuario.getLogin());
 		boolean senhasEstaoBatendo = encoder.matches(usuario.getSenha(), user.getPassword());
 		if(senhasEstaoBatendo) {

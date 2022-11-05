@@ -2,6 +2,8 @@ package com.rodrigo.vendas.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,10 +20,11 @@ import com.rodrigo.vendas.services.security.jwt.JwtAuthFilter;
 import com.rodrigo.vendas.services.security.jwt.JwtService;
 
 
-
+@Configuration
+@SuppressWarnings("deprecation")
 @EnableWebSecurity
 public class SegurityConfig extends WebSecurityConfigurerAdapter{
-	
+	@Lazy
 	@Autowired
 	private UsuarioService usuarioService;
 	
@@ -31,7 +34,7 @@ public class SegurityConfig extends WebSecurityConfigurerAdapter{
 	
 	
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	public  PasswordEncoder passwordEncoder() {
 //método para encriptografar a senha
 			return new BCryptPasswordEncoder();
 	}
